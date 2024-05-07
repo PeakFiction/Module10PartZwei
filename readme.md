@@ -10,3 +10,6 @@ The server initiates by running cargo run --bin server, listening for connection
 
 ### Experiment 2.2
 To change the server's listening port from 2000 to 8080, by modifying the TcpListener::bind address in the server code. However, the client still tries connecting to port 2000, breaking the application. Adjust the ClientBuilder::from_uri input to the new port address, allowing the client to connect to port 8080 successfully. Both server and client use the tokio_websockets package, implying they use the same WebSocket protocol. The server listens on the configured address and port, accepts TCP connections, and upgrades them to WebSocket connections using ServerBuilder. Clients establish WebSocket connections via ClientBuilder, facilitating bidirectional communication between server and clients.
+
+### Experiment 2.3
+The client receives a server message not broadcasted to others. To add this, send a message before the select loop in handle_connection. To include the origin address and port with broadcasted messages, use format! to combine the address and text, then broadcast the formatted string. Other changes align println! statements with the module screenshots, like printing "Galih's Computer - from Server: {message}" on the client.
